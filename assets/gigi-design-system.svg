@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true">
+  <title>???? ? ????? � 2026: ?????? UI</title>
+  <desc>??????? ??? ??????????? ????? use href ?? id. ???????, ??????, ????? ??????.</desc>
+
+  <defs>
+    <!-- A=>2=>9 CTA: teal � cyan -->
+    <linearGradient id="gg-grad-teal-cyan" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#008080"/>
+      <stop offset="100%" stop-color="#00f5ff"/>
+    </linearGradient>
+
+    <!-- 0;82:0 :0@B>G:8 ?0@B=Q@0 (O@:0O) -->
+    <linearGradient id="gg-grad-partner-cyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00a89e"/>
+      <stop offset="100%" stop-color="#00e8ff"/>
+    </linearGradient>
+
+    <!-- @0485=B 4;O B5:AB0 703>;>2:0 (8<8B0F8O: 2 CSS ;CGH5 background-clip:text) -->
+    <linearGradient id="gg-grad-title" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="55%" stop-color="#f5f0e6"/>
+      <stop offset="100%" stop-color="#d4af37"/>
+    </linearGradient>
+
+    <!--  0<:0 AB5:;O==>9 ?0=5;8: O@G5 ?> 4803>=0;8 -->
+    <linearGradient id="gg-grad-panel-stroke" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6bffff" stop-opacity="0.95"/>
+      <stop offset="35%" stop-color="rgba(255,255,255,0.35)"/>
+      <stop offset="65%" stop-color="rgba(255,255,255,0.2)"/>
+      <stop offset="100%" stop-color="#4af4ff" stop-opacity="0.9"/>
+    </linearGradient>
+
+    <filter id="gg-glow-cyan" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="gg-glow-soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="0 0 0 0 0
+                0 1 1 0 0
+                0 1 1 0 0
+                0 0 0 0.45 0" result="cyan"/>
+      <feMerge>
+        <feMergeNode in="cyan"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- >3>B8? GG (:204@0B + 1C:2K).  07<5@ 2 25@AB:5: width/height 2 px 8;8 rem -->
+  <symbol id="logo-gg" viewBox="0 0 56 56">
+    <rect x="2" y="2" width="52" height="52" rx="14" fill="rgba(0,40,45,0.65)" stroke="rgba(0,255,245,0.55)" stroke-width="1"/>
+    <text x="28" y="36" text-anchor="middle" font-family="ui-sans-serif, system-ui, 'Montserrat', 'Inter', sans-serif" font-size="19" font-weight="700" fill="#bffff9" filter="url(#gg-glow-cyan)">GG</text>
+  </symbol>
+
+  <!-- :>=:0: :0;5=40@L -->
+  <symbol id="icon-calendar" viewBox="0 0 24 24">
+    <rect x="3" y="5" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    <path d="M3 9.5h18M8 3.5V7M16 3.5V7" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- :>=:0: ?8= -->
+  <symbol id="icon-pin" viewBox="0 0 24 24">
+    <path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+    <circle cx="12" cy="10" r="2.2" fill="currentColor"/>
+  </symbol>
+
+  <!-- :>=:0: 740=85 -->
+  <symbol id="icon-building" viewBox="0 0 24 24">
+    <path d="M4 21V8l8-4v17M12 8l8 4v9" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M9 21v-4h6v4M9 13h.01M12 13h.01M15 13h.01M9 17h.01M12 17h.01M15 17h.01" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- ">G:0-8=48:0B>@ 2 159465 -->
+  <symbol id="dot-live" viewBox="0 0 12 12">
+    <circle cx="6" cy="6" r="4" fill="#34d399" filter="url(#gg-glow-soft)"/>
+  </symbol>
+
+  <!-- 5:>@0B82=0O @0<:0 4;O AB5:;O==>9 ?0=5;8 ?0@B=Q@>2 (?>4;>6:0 ?>4 blur 2 CSS) -->
+  <symbol id="glass-panel-frame" viewBox="0 0 360 560">
+    <rect x="1" y="1" width="358" height="558" rx="28" fill="none" stroke="url(#gg-grad-panel-stroke)" stroke-width="2"/>
+  </symbol>
+
+  <!-- ;59AE>;45@ :0@B>G:8 ?0@B=Q@0: BQ<=0O -->
+  <symbol id="partner-card-dark" viewBox="0 0 320 96">
+    <rect x="0" y="0" width="320" height="96" rx="16" fill="rgba(8,12,22,0.72)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  </symbol>
+
+  <!-- ;59AE>;45@ :0@B>G:8 ?0@B=Q@0: 3@0485=B -->
+  <symbol id="partner-card-bright" viewBox="0 0 320 96">
+    <rect x="0" y="0" width="320" height="96" rx="16" fill="url(#gg-grad-partner-cyan)" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+  </symbol>
+
+  <!-- >;>A0 primary CTA (:=>?:0): F25B 70;82:8 4;O <0A:8 8;8 foreignObject 8;8 D>= G5@57 CSS -->
+  <symbol id="cta-primary-fill" viewBox="0 0 280 48">
+    <rect x="0" y="0" width="280" height="48" rx="24" fill="url(#gg-grad-teal-cyan)"/>
+  </symbol>
+</svg>

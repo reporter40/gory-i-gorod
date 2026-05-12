@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Подключить заявки к Google Таблице</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        line-height: 1.5;
+        max-width: 38rem;
+        margin: 0 auto;
+        padding: 1.25rem;
+        color: #1a1a1a;
+        background: #f6f8fb;
+      }
+      h1 {
+        font-size: 1.35rem;
+        margin-top: 0;
+      }
+      ol {
+        padding-left: 1.2rem;
+      }
+      li {
+        margin: 0.9rem 0;
+      }
+      a {
+        color: #0b57d0;
+        word-break: break-all;
+      }
+      .pill {
+        display: inline-block;
+        background: #e8f0fe;
+        padding: 0.15rem 0.5rem;
+        border-radius: 6px;
+        font-size: 0.9rem;
+      }
+      .note {
+        background: #fff;
+        border: 1px solid #dadce0;
+        border-radius: 10px;
+        padding: 1rem;
+        margin-top: 1.25rem;
+      }
+      code {
+        font-size: 0.88rem;
+        background: #eee;
+        padding: 0.1rem 0.35rem;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Заявки с сайта → Google Таблица (простые шаги)</h1>
+    <p>
+      Откройте эту страницу в браузере и нажимайте ссылки по порядку.
+      Почта для вопросов:
+      <a href="mailto:dm.martyshenko@gmail.com">dm.martyshenko@gmail.com</a>
+    </p>
+
+    <ol>
+      <li>
+        <strong>Войти в Google.</strong> Если не залогинены —
+        <a href="https://accounts.google.com/signin" target="_blank" rel="noopener">вход в аккаунт Google</a>,
+        почта <span class="pill">Gmail</span>
+        <a href="https://mail.google.com/" target="_blank" rel="noopener">mail.google.com</a>
+      </li>
+      <li>
+        <strong>Создать форму.</strong> Нажмите:
+        <a href="https://docs.google.com/forms/u/0/create" target="_blank" rel="noopener"
+          >docs.google.com/forms → создать новую форму</a
+        >
+        (или
+        <a href="https://forms.google.com/" target="_blank" rel="noopener">forms.google.com</a>
+        → «Пустая форма»).
+      </li>
+      <li>
+        <strong>Три вопроса в форме</strong> (кнопка «+» слева добавляет вопрос):<br />
+        1) Краткий ответ — «Имя и организация»<br />
+        2) Краткий ответ — «Email»<br />
+        3) Абзац — «Сообщение»
+      </li>
+      <li>
+        <strong>Таблица для ответов.</strong> Вверху формы вкладка «Ответы» → зелёная таблица «Создать
+        электронную таблицу». Справка Google:
+        <a href="https://support.google.com/docs/answer/2917682?hl=ru" target="_blank" rel="noopener"
+          >как связать форму с таблицей</a
+        >.
+      </li>
+      <li>
+        <strong>(По желанию) Письма о новых заявках.</strong> Шестерёнка «Настройки» → «Ответы» → уведомления на
+        <a href="mailto:dm.martyshenko@gmail.com">dm.martyshenko@gmail.com</a>.
+      </li>
+      <li>
+        <strong>Ссылка для сайта.</strong> Кнопка «Отправить» (вверху справа) → вкладка
+        <strong>&lt;&gt; Встроить</strong>.
+        <a href="https://support.google.com/docs/answer/2839588?hl=ru" target="_blank" rel="noopener"
+          >Как встроить форму (справка)</a
+        >. Скопируйте из кода только адрес внутри <code>src="..."</code> (длинная ссылка на
+        docs.google.com/forms/…).
+      </li>
+      <li>
+        <strong>Вставить в сайт.</strong> Откройте в Cursor / Блокноте файл
+        <code>google-form-config.js</code>
+        в папке сайта. В строке <code>embedUrl: ""</code> вставьте ссылку между кавычками, сохраните файл.
+        Пример:
+        <div class="note"><code>embedUrl: "https://docs.google.com/forms/d/e/....../viewform?embedded=true",</code></div>
+      </li>
+      <li>
+        <strong>Проверить.</strong> Откройте ваш лендинг в браузере и обновите страницу (F5). Должна появиться
+        встроенная Google Форма. Отправьте тест — строка должна появиться в таблице.
+      </li>
+    </ol>
+
+    <div class="note">
+      <strong>Полезные ссылки ещё раз:</strong><br />
+      <a href="https://docs.google.com/forms/u/0/create" target="_blank" rel="noopener">Создать форму</a> ·
+      <a href="https://docs.google.com/spreadsheets/" target="_blank" rel="noopener">Мои таблицы</a> ·
+      <a href="https://support.google.com/docs/topic/6063584?hl=ru" target="_blank" rel="noopener">Справка по Формам</a>
+    </div>
+  </body>
+</html>
