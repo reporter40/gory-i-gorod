@@ -2,58 +2,43 @@
 <html lang="ru">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Горы и Город — 2026 | Форум урбанистики нового поколения</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+    <title>«Горы и Город – 2026» | Форум урбанистики</title>
+    <meta name="theme-color" content="#1B3A6B" />
+    <meta name="color-scheme" content="light" />
     <meta
       name="description"
-      content="Форум в Геленджике: туризм, качество среды, инфраструктура, ИИ в управлении городом. 16–17 мая 2026."
-    />
-    <meta name="theme-color" content="#040814" />
-    <meta name="color-scheme" content="dark" />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="ru_RU" />
-    <meta property="og:title" content="Горы и Город — 2026 | Форум урбанистики нового поколения" />
-    <meta
-      property="og:description"
-      content="Форум в Геленджике: туризм, качество среды, инфраструктура, ИИ в управлении городом. 16–17 мая 2026."
-    />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Горы и Город — 2026" />
-    <meta
-      name="twitter:description"
-      content="Форум урбанистики в Геленджике, 16–17 мая 2026."
+      content="Форум урбанистики в Геленджике, 16–17 мая 2026. Площадка Геленджик Арена."
     />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Orbitron:wght@500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <a class="skip-link" href="#main">К основному содержанию</a>
-    <div class="page-bg" aria-hidden="true"></div>
+    <a class="skip-link" href="#program">К программе</a>
 
     <header class="site-header">
       <div class="header-inner">
-        <a class="brand" href="#top">
-          <svg role="img" aria-label="Горы и Город">
-            <use href="assets/gigi-design-system.svg#logo-gg" />
+        <a class="brand" href="#top" id="top">
+          <svg class="brand-mt" aria-hidden="true" viewBox="0 0 48 36" xmlns="http://www.w3.org/2000/svg">
+            <path
+              fill="currentColor"
+              d="M0 34 12 14l8 14 10-26 18 36H0Zm18 0 8-17 14 29H8l10-12Z"
+              opacity=".9"
+            />
           </svg>
-          <span>Горы и Город — 2026</span>
+          <span class="brand-text">
+            <span class="brand-title">«Горы и Город – 2026»</span>
+            <span class="brand-sub">Форум урбанистики | Геленджик | 16–17 мая 2026</span>
+          </span>
         </a>
-
-        <nav class="nav-desktop" aria-label="Основная навигация">
-          <a href="#about" data-nav="about">О форуме</a>
-          <a href="#themes" data-nav="themes">Темы</a>
-          <a href="#speakers" data-nav="speakers">Спикеры</a>
-          <a href="#program" data-nav="program">Программа</a>
-        </nav>
-
         <div class="header-actions">
-          <a class="btn btn--header-cta btn--small" href="#contact">Принять участие</a>
+          <span class="venue-pill">Геленджик Арена</span>
           <button
             type="button"
             class="btn-nav-toggle"
@@ -64,671 +49,165 @@
             <span></span>
           </button>
         </div>
-
-        <nav id="mobile-nav" class="nav-mobile" aria-label="Мобильное меню">
-          <a href="#about" data-nav="about">О форуме</a>
-          <a href="#themes" data-nav="themes">Темы</a>
-          <a href="#speakers" data-nav="speakers">Спикеры</a>
+        <nav class="nav-desktop" aria-label="Основная навигация">
           <a href="#program" data-nav="program">Программа</a>
-          <a href="#contact">Контакты</a>
+          <a href="#speakers" data-nav="speakers">Спикеры</a>
+          <a href="#venue" data-nav="venue">Площадка</a>
+          <a href="#ai-pulse" data-nav="ai-pulse">AI-пульс</a>
+          <a href="#voting" data-nav="voting">Голосование</a>
+        </nav>
+        <nav id="mobile-nav" class="nav-mobile" aria-label="Мобильное меню">
+          <a href="#program" data-nav="program">Программа</a>
+          <a href="#speakers" data-nav="speakers">Спикеры</a>
+          <a href="#venue" data-nav="venue">Площадка</a>
+          <a href="#ai-pulse" data-nav="ai-pulse">AI-пульс</a>
+          <a href="#voting" data-nav="voting">Голосование</a>
         </nav>
       </div>
     </header>
 
-    <main id="main" class="landing">
-      <div id="top">
-        <section class="hero" aria-labelledby="hero-title">
-          <div>
-            <div class="hero-badge">
-              <span class="hero-badge__inner">
-                <svg class="hero-badge__icon" width="14" height="14" viewBox="0 0 12 12" aria-hidden="true">
-                  <use href="assets/gigi-design-system.svg#dot-live" />
-                </svg>
-                <span class="hero-badge__text">Форум урбанистики нового поколения</span>
-              </span>
-            </div>
-            <h1 id="hero-title" class="hero-title">
-              Горы и Город — <span class="hero-title__year">2026</span>
-            </h1>
-            <p class="hero-lead">
-              Проекты, которые меняют города. От концепций — к реальному качеству жизни.
-            </p>
-            <div class="meta-row">
-              <div class="meta-pill">
-                <span class="meta-pill__inner">
-                  <svg
-                    class="meta-pill__icon"
-                    width="17"
-                    height="17"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <use href="assets/gigi-design-system.svg#icon-calendar" />
-                  </svg>
-                  <span class="meta-pill__text">16–17 мая 2026 года</span>
-                </span>
-              </div>
-              <div class="meta-pill">
-                <span class="meta-pill__inner">
-                  <svg
-                    class="meta-pill__icon"
-                    width="17"
-                    height="17"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <use href="assets/gigi-design-system.svg#icon-pin" />
-                  </svg>
-                  <span class="meta-pill__text">Геленджик</span>
-                </span>
-              </div>
-              <div class="meta-pill">
-                <span class="meta-pill__inner">
-                  <svg
-                    class="meta-pill__icon"
-                    width="17"
-                    height="17"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <use href="assets/gigi-design-system.svg#icon-building" />
-                  </svg>
-                  <span class="meta-pill__text">Главный зал</span>
-                </span>
-              </div>
-            </div>
-            <div class="hero-cta">
-              <a class="btn btn--primary" href="#contact">Принять участие</a>
-              <a class="btn btn--ghost-gold" href="#program">Смотреть программу</a>
-            </div>
-          </div>
-
-          <aside class="partner-panel" aria-label="Партнёры форума">
-            <div class="partner-panel__inner">
-              <div class="partner-pill-stack">
-                <a
-                  class="partner-pill partner-pill--innopolis"
-                  href="https://innopolis.university/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Innopolis University — открыть сайт"
-                >
-                  <span class="partner-pill__mark" aria-hidden="true">
-                    <svg class="partner-pill__svg" viewBox="0 0 56 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <defs>
-                        <clipPath id="clip-inno-shield">
-                          <path
-                            d="M28 3.2 6.5 12.2v21.8c0 11.4 7.6 21.6 21.5 26.6 13.9-5 21.5-15.2 21.5-26.6V12.2L28 3.2z"
-                          />
-                        </clipPath>
-                      </defs>
-                      <path
-                        d="M28 3.2 6.5 12.2v21.8c0 11.4 7.6 21.6 21.5 26.6 13.9-5 21.5-15.2 21.5-26.6V12.2L28 3.2z"
-                        fill="#070d18"
-                        stroke="rgba(200, 212, 230, 0.92)"
-                        stroke-width="1.15"
-                      />
-                      <g clip-path="url(#clip-inno-shield)">
-                        <rect x="0" y="9" width="56" height="7" fill="#f2a317" />
-                        <rect x="0" y="16" width="56" height="15" fill="#156ec9" />
-                        <rect x="0" y="31" width="56" height="3.2" fill="#f0f4f8" />
-                        <rect x="0" y="34.2" width="56" height="38" fill="#1f8f54" />
-                      </g>
-                    </svg>
-                  </span>
-                  <span class="partner-pill__words">
-                    <span class="partner-pill__line partner-pill__line--main">Innopolis</span>
-                    <span class="partner-pill__line partner-pill__line--sub">University</span>
-                  </span>
-                </a>
-
-                <a
-                  class="partner-pill partner-pill--iint"
-                  href="https://iintegraciya.ru/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="ИИнтеграция — открыть сайт"
-                >
-                  <span class="partner-pill__mark" aria-hidden="true">
-                    <svg class="partner-pill__svg" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M17 42L26 14"
-                        stroke="#fff"
-                        stroke-width="5.5"
-                        stroke-linecap="square"
-                      />
-                      <path
-                        d="M30 42L39 14"
-                        stroke="#fff"
-                        stroke-width="5.5"
-                        stroke-linecap="square"
-                      />
-                      <path d="M19.5 23.5h18" stroke="#fff" stroke-width="3.8" stroke-linecap="square" />
-                    </svg>
-                  </span>
-                  <span class="partner-pill__words">
-                    <span class="partner-pill__line partner-pill__line--main partner-pill__line--iint"
-                      >ИИнтеграция</span
-                    >
-                  </span>
-                </a>
-
-                <a
-                  class="partner-pill partner-pill--arena"
-                  href="https://gelenarena.ru/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Геленджик Арена — открыть сайт"
-                >
-                  <span class="partner-pill__mark" aria-hidden="true">
-                    <svg class="partner-pill__svg" viewBox="0 0 64 52" xmlns="http://www.w3.org/2000/svg">
-                      <defs>
-                        <linearGradient id="grad-arena-rays" x1="0%" y1="100%" x2="100%" y2="0%">
-                          <stop offset="0%" stop-color="#f8d450" />
-                          <stop offset="40%" stop-color="#f472b6" />
-                          <stop offset="100%" stop-color="#38e0ff" />
-                        </linearGradient>
-                      </defs>
-                      <g
-                        stroke="url(#grad-arena-rays)"
-                        stroke-width="1.35"
-                        fill="none"
-                        stroke-linecap="round"
-                      >
-                        <path d="M32 44L15 20.5" />
-                        <path d="M32 44L18 18" />
-                        <path d="M32 44L22.5 15.5" />
-                        <path d="M32 44L28 13" />
-                        <path d="M32 44L32 12" />
-                        <path d="M32 44L36 13" />
-                        <path d="M32 44L41.5 15.5" />
-                        <path d="M32 44L46 18" />
-                        <path d="M32 44L49 20.5" />
-                        <path d="M32 44L50.5 24" />
-                        <path d="M32 44L51 28" />
-                        <path d="M32 44L50 31.5" />
-                        <path d="M32 44L47.5 35" />
-                      </g>
-                      <path
-                        d="M13 44c4.5-11 9.8-19.2 19-19.2S46.5 33 51 44"
-                        stroke="url(#grad-arena-rays)"
-                        stroke-width="2.2"
-                        fill="none"
-                        stroke-linecap="round"
-                        opacity="0.85"
-                      />
-                    </svg>
-                  </span>
-                  <span class="partner-pill__words">
-                    <span class="partner-pill__line partner-pill__line--main">Геленджик</span>
-                    <span class="partner-pill__line partner-pill__line--sub">Арена</span>
-                  </span>
-                </a>
-              </div>
-              <p class="partner-foot">
-                <span class="partner-foot__gold">Разработчик и креативный партнёр концепции</span>
-                <span class="partner-foot__line">Консалтингово-аналитическая группа «ИИнтеграция»</span>
-              </p>
-            </div>
-          </aside>
-        </section>
-      </div>
-
-      <section id="about" class="land-section" aria-labelledby="about-title">
-        <div class="section-head">
-          <p class="section-kicker">Манифест</p>
-          <h2 id="about-title" class="section-title">О форуме: урбанистика начинается с места</h2>
-          <p class="section-desc">
-            Мы верим: будущее города невозможно отделить от конкретной территории — её рельефа, климата,
-            истории и людей, которые здесь живут и приезжают.
-          </p>
-        </div>
-        <div class="glass-panel">
-          <div class="manifest-columns">
-            <p>
-              Урбанистика начинается не с громких лозунгов, а с конкретного места и конкретных решений: где
-              пройдёт набережная, как связать транспорт и прогулку, чем дышит квартал ночью, как город
-              встречает гостя и защищает жителя. Каждый такой выбор — часть инфраструктурного облика
-              будущего: он остаётся на десятилетия и определяет доверие к власти, бренд территории и силу
-              сообществ.
-            </p>
-            <p>
-              <strong>Горы и Город — 2026</strong> — площадка, где эти решения проектируются в открытом
-              формате: на стыке инженерии, дизайна, экологии и управления данными. Здесь формируется язык
-              городской среды, который понятен и профессиональному сообществу, и жителю. Мы говорим о
-              комфорте как о системе — о безопасности, доступности, культуре, экономике внимания и бережном
-              развитии курортных территорий.
-            </p>
-            <p>
-              Форум помогает соединить стратегию и практику: от переосмысления туристического потенциала —
-              к управляемому качеству сервисов; от бережного отношения к ландшафту — к новым сценариям
-              общественной жизни у моря и в горах. Наша цель — повысить туристическую привлекательность без
-              ущерба для экологии и местного быта: через точечные проекты, партнёрства и измеримые
-              показатели среды.
-            </p>
-            <p>
-              В центре повестки — <strong>человек</strong> и симбиоз <strong>архитектуры с природой</strong>:
-              свет, ветер, вода и зелень как соавторы планировки; пространство, которое лечит, вдохновляет и
-              собирает разные поколения. Присоединяйтесь к разговору, который превращает город из фона в
-              главного героя жизни у моря.
-            </p>
-          </div>
-          <p class="manifest-pullquote">
-            Если город умеет принимать гостя и беречь жителя — он устойчив. Если среда честна к природе —
-            она красива не на рендере, а в реальности.
-          </p>
+    <main class="main">
+      <section class="hero" aria-labelledby="hero-h">
+        <h1 id="hero-h" class="hero-title">Горы и Город – 2026</h1>
+        <p class="hero-meta">Форум урбанистики · Геленджик Арена · 16–17 мая 2026</p>
+        <div class="hero-actions">
+          <a class="btn btn-fill" href="#program">Открыть программу</a>
+          <a class="btn btn-line" href="#contact">Заявка</a>
         </div>
       </section>
 
-      <section id="themes" class="land-section" aria-labelledby="themes-title">
+      <section id="program" class="section" aria-labelledby="program-h">
         <div class="section-head">
-          <p class="section-kicker">Повестка</p>
-          <h2 id="themes-title" class="section-title">Пять направлений, задающих горизонт развития</h2>
-          <p class="section-desc">
-            Нажмите на карточку, чтобы прочитать смысловой фокус блока — от устойчивого туризма до ИИ в
-            управлении городом.
-          </p>
+          <h2 id="program-h">Программа</h2>
+          <p>По умолчанию — Главный зал. Презентации КубГУ — <strong>16 мая</strong> (слоты 10:00 и 11:00).</p>
         </div>
-        <div class="topic-grid">
-          <details class="topic-card">
-            <summary>
-              <span class="topic-index">01</span>
-              <div>
-                <h3>Устойчивое развитие туристических городов</h3>
-                <span class="topic-hint">Ребрендинг территории, арт-парки, идентичность курорта</span>
-              </div>
-            </summary>
-            <div class="topic-card__body">
-              Курортный город — бренд, экосистема и экология одновременно. Обсудим, как обновлять образ
-              территории без «украшательств», строить культурные якоря вроде арт-парков и сценографии
-              общественных пространств, балансировать поток туристов и комфорт жителей.
+        <div class="panel">
+          <div class="toolbar">
+            <div class="toolbar-row venue-tabs" role="tablist" aria-label="Зал">
+              <button type="button" class="vtab is-active" data-vtab="main" role="tab" aria-selected="true">
+                🏔️ Главный зал
+              </button>
+              <button type="button" class="vtab" data-vtab="small" role="tab" aria-selected="false">
+                🎬 Малый зал
+              </button>
+              <button type="button" class="vtab" data-vtab="kubsu" role="tab" aria-selected="false">
+                🎓 КубГУ
+              </button>
             </div>
-          </details>
-          <details class="topic-card">
-            <summary>
-              <span class="topic-index">02</span>
-              <div>
-                <h3>Город для людей: качество жизни и комфорт среды</h3>
-                <span class="topic-hint">Пешеходность, безопасность, микроклимат, инклюзия</span>
-              </div>
-            </summary>
-            <div class="topic-card__body">
-              Качество жизни измеряется деталями: удобной связностью кварталов, освещением, тихими зонами,
-              доступной средой. Разберём инструменты дизайна улиц и набережных, которые делают город
-              поддерживающим, а не истощающим.
+            <div class="toolbar-row day-filter">
+              <button type="button" class="day-btn is-active" data-day-filter="0">Все</button>
+              <button type="button" class="day-btn" data-day-filter="1">День 1</button>
+              <button type="button" class="day-btn" data-day-filter="2">День 2</button>
             </div>
-          </details>
-          <details class="topic-card">
-            <summary>
-              <span class="topic-index">03</span>
-              <div>
-                <h3>Креативная экономика и культурная среда</h3>
-                <span class="topic-hint">Индустриальное наследие, туризм постмодерна, новые смыслы</span>
-              </div>
-            </summary>
-            <div class="topic-card__body">
-              Индустриальные памятники, фестивальные форматы и новая культурная экономика превращают
-              «наследие» в точку притяжения. Поговорим о том, как оживлять территории через креативные
-              индустрии без потери аутентичности.
-            </div>
-          </details>
-          <details class="topic-card">
-            <summary>
-              <span class="topic-index">04</span>
-              <div>
-                <h3>Инфраструктура, ГЧП, исследования и стратегии</h3>
-                <span class="topic-hint">Архитектура, терапевтический ландшафт, долгий горизонт</span>
-              </div>
-            </summary>
-            <div class="topic-card__body">
-              Покажем связку крупных вложений и «мягкой» инфраструктуры: как ГЧП и исследовательские центры
-              помогают выстраивать стратегию, а ландшафт и архитектура — поддерживают здоровье и
-              восстановление в городе у моря.
-            </div>
-          </details>
-          <details class="topic-card">
-            <summary>
-              <span class="topic-index">05</span>
-              <div>
-                <h3>Инновации: цифровые сервисы и ИИ в управлении городом</h3>
-                <span class="topic-hint">Данные, прогнозирование, сервисная модель власти</span>
-              </div>
-            </summary>
-            <div class="topic-card__body">
-              Цифровые сервисы и ответственное применение ИИ снимают хаос из городских процессов: от
-              транспорта и коммуникаций с жителем до планирования событий и безопасности. Обсудим внедрение
-              без «техношума», ориентируясь на пользу и прозрачность.
-            </div>
-          </details>
+            <label class="search-field">
+              <span class="visually-hidden">Поиск</span>
+              <input type="search" data-program-search placeholder="Поиск по спикеру или теме" />
+            </label>
+          </div>
+          <div class="slot-list" data-program-root></div>
         </div>
       </section>
 
-      <section id="speakers" class="land-section" aria-labelledby="speakers-title">
+      <section id="speakers" class="section" aria-labelledby="speakers-h">
         <div class="section-head">
-          <p class="section-kicker">Эксперты</p>
-          <h2 id="speakers-title" class="section-title">Спикеры и ключевые темы выступлений</h2>
-          <p class="section-desc">
-            Представители инфраструктуры, стратегического планирования, цифровых сервисов и креативных
-            индустрий — в одном дискуссионном контуре.
-          </p>
+          <h2 id="speakers-h">Спикеры</h2>
+          <p>26 ключевых спикеров. Время и день — ссылкой на строку программы.</p>
         </div>
-        <div class="speaker-grid">
-          <article class="speaker-card">
-            <h3 class="speaker-name">Донцов Егор · Сергей Дяйкин</h3>
-            <p class="speaker-role">
-              ООО «Аэропорт». Сергей Дяйкин — исполнительный директор. Совместный блок с Егором Донцовым —
-              логистика гостя и развитие туристических потоков.
+        <div class="speaker-grid" data-speakers-root></div>
+      </section>
+
+      <section id="venue" class="section" aria-labelledby="venue-h">
+        <div class="section-head">
+          <h2 id="venue-h">Площадка</h2>
+        </div>
+        <div class="panel venue-card">
+          <p><strong>Название:</strong> Геленджик Арена</p>
+          <p><strong>Город:</strong> Геленджик, Краснодарский край</p>
+          <p><strong>Даты:</strong> 16–17 мая 2026</p>
+          <hr class="divider" />
+          <h3 class="mini-h">Залы</h3>
+          <ul class="bullet">
+            <li>Главный зал — пленарные сессии и сольные выступления</li>
+            <li>Малый зал — кинопоказ и проектная мастерская (16 мая, 16:30–18:00)</li>
+            <li>Фойе — регистрация, кофе-брейки, нетворкинг</li>
+            <li>Ресторан — обеды</li>
+          </ul>
+          <h3 class="mini-h">Трансфер для спикеров</h3>
+          <ul class="bullet">
+            <li>08:30 — Трансфер из отеля на площадку</li>
+            <li>09:00 — Прибытие, экскурсия по площадке / кофе</li>
+            <li>21:00 / 22:30 — Трансфер в отель</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="ai-pulse" class="section" aria-labelledby="ai-h">
+        <div class="section-head">
+          <h2 id="ai-h">AI-пульс</h2>
+          <p>Сводка голосования, живое время и следующий слот по расписанию (локальное время устройства, даты 16–17.05.2026).</p>
+        </div>
+        <div class="panel pulse" data-ai-pulse></div>
+      </section>
+
+      <section id="voting" class="section" aria-labelledby="vote-h">
+        <div class="section-head">
+          <h2 id="vote-h">Голосование</h2>
+          <p>Интерес к спикерам по сумме нажатий «Интересно» в карточках программы (% от лидера: золото — максимум, мид и низ — по порогам).</p>
+        </div>
+        <div class="panel heat" data-heatmap-root></div>
+      </section>
+
+      <section id="contact" class="section section--cta" aria-labelledby="contact-h">
+        <div class="section-head">
+          <h2 id="contact-h">Участие</h2>
+        </div>
+        <div class="panel contact-grid">
+          <p>
+            Почта: <a href="mailto:dm.martyshenko@gmail.com">dm.martyshenko@gmail.com</a>
+          </p>
+          <div id="google-form-embed-host" class="google-form-embed-host" hidden></div>
+          <form id="contact-form" class="contact-form" novalidate>
+            <p id="form-hint-native" class="form-hint-native">
+              Если форма не отображается, заполните поля ниже.
             </p>
-            <span class="speaker-theme">Инфраструктура въезда, логистика гостя, связка транспорта и курорта</span>
-          </article>
-          <article class="speaker-card">
-            <h3 class="speaker-name">Представители Генплана Москвы</h3>
-            <p class="speaker-role">Градостроительные стратегии большого города — уроки для туристических территорий</p>
-            <span class="speaker-theme">Планирование, плотность, качество среды в масштабе мегаполиса</span>
-          </article>
-          <article class="speaker-card">
-            <h3 class="speaker-name">Айрат Рашатович Хабибуллин</h3>
-            <p class="speaker-role">Эксперт в области цифровой трансформации городской среды</p>
-            <span class="speaker-theme">Цифровые сервисы в управлении городом</span>
-          </article>
-          <article class="speaker-card">
-            <h3 class="speaker-name">Александр Старков</h3>
-            <p class="speaker-role">Развитие креативных индустрий и культурных проектов</p>
-            <span class="speaker-theme">Креативные индустрии · экономика впечатлений и смыслов</span>
-          </article>
-        </div>
-      </section>
-
-      <section id="program" class="land-section" aria-labelledby="program-title">
-        <div class="section-head">
-          <p class="section-kicker">Расписание</p>
-          <h2 id="program-title" class="section-title">Два дня: от пленарных смыслов к практике</h2>
-          <p class="section-desc">
-            Переключайте день — читайте блоки и время. События VIP и закрытого формата отмечены золотым — по
-            приглашениям и отдельной регистрации.
-          </p>
-        </div>
-        <div class="glass-panel">
-          <div class="program-switcher" role="tablist" aria-label="Дни форума">
-            <button
-              type="button"
-              class="program-tab"
-              role="tab"
-              id="tab-day1"
-              aria-selected="true"
-              aria-controls="panel-day1"
-              data-day="day1"
-            >
-              День 1 · 16 мая
-            </button>
-            <button
-              type="button"
-              class="program-tab"
-              role="tab"
-              id="tab-day2"
-              aria-selected="false"
-              aria-controls="panel-day2"
-              tabindex="-1"
-              data-day="day2"
-            >
-              День 2 · 17 мая
-            </button>
-          </div>
-
-          <div class="program-panels">
-            <div
-              class="program-panel is-active"
-              id="panel-day1"
-              role="tabpanel"
-              aria-labelledby="tab-day1"
-              aria-hidden="false"
-            >
-              <p class="program-day-label">Черта дня — задать общий вектор: туризм, идентичность, качество жизни у моря.</p>
-              <div class="timeline">
-                <article class="program-item">
-                  <div class="program-item__head">
-                    <span class="program-time">10:00–11:30</span>
-                    <div class="program-badges"><span class="badge">Пленарная сессия</span></div>
-                  </div>
-                  <h3>Открытие и манифест форума</h3>
-                  <p>
-                    Контекст Геленджика как точки пересечения гор, моря и туристического будущего России.
-                    Цели устойчивого развития и партнерская модель: власть — бизнес — наука — сообщество.
-                  </p>
-                </article>
-                <article class="program-item">
-                  <div class="program-item__head">
-                    <span class="program-time">12:00–14:00</span>
-                    <div class="program-badges"><span class="badge">Сольные выступления</span></div>
-                  </div>
-                  <h3>Блок сольных выступлений: туризм и качество жизни</h3>
-                  <p>
-                    Доклады о ребрендинге курортной территории, сезонности и «мягкой» инфраструктуре гостеприимства:
-                    как выдерживать наплыв туристов, сохраняя спокойствие города.
-                  </p>
-                </article>
-                <article class="program-item program-item--vip">
-                  <div class="program-item__head">
-                    <span class="program-time">15:00–16:30</span>
-                    <div class="program-badges">
-                      <span class="badge badge--vip">VIP</span>
-                      <span class="badge badge--closed">Закрытое</span>
-                    </div>
-                  </div>
-                  <h3>VIP-фуршет с фасилитацией экспертов</h3>
-                  <p>
-                    Неформальная сессия для партнёров и спикеров: обсуждение приоритетных проектов в малых
-                    группах, нетворкинг и предварительная «карта» возможных коллабораций. Дресс-код — деловой
-                    smart.
-                  </p>
-                </article>
-                <article class="program-item">
-                  <div class="program-item__head">
-                    <span class="program-time">17:00–19:00</span>
-                    <div class="program-badges"><span class="badge">Пленарная дискуссия</span></div>
-                  </div>
-                  <h3>Симбиоз архитектуры и природы в приморском городе</h3>
-                  <p>
-                    Публичный разговор о градиенте город — ландшафт — общественное пространство. Как решения
-                    в набережной, склоне и парковой сети поддерживают здоровье, экологию и туристический бренд.
-                  </p>
-                </article>
-              </div>
+            <div class="field">
+              <label for="c-name">Имя и организация</label>
+              <input id="c-name" name="name" type="text" autocomplete="name" placeholder="ФИО и организация" />
             </div>
-
-            <div
-              class="program-panel"
-              id="panel-day2"
-              role="tabpanel"
-              aria-labelledby="tab-day2"
-              aria-hidden="true"
-            >
-              <p class="program-day-label">
-                Второй день — инженерия среды, дизайн для людей, ИИ и «каталог» лучших практик на земле.
-              </p>
-              <div class="timeline">
-                <article class="program-item">
-                  <div class="program-item__head">
-                    <span class="program-time">10:00–12:30</span>
-                    <div class="program-badges"><span class="badge">Инфраструктура</span></div>
-                  </div>
-                  <h3>Инфраструктурные решения и ГЧП: от проекта к сервису</h3>
-                  <p>
-                    Практический блок о дорогах, связности, инженерной устойчивости и экономике долгосрочных
-                    контрактов, где качество среды закреплено в KPI.
-                  </p>
-                </article>
-                <article class="program-item">
-                  <div class="program-item__head">
-                    <span class="program-time">13:00–15:00</span>
-                    <div class="program-badges"><span class="badge">Дизайн для людей</span></div>
-                  </div>
-                  <h3>Блок «Город для людей»</h3>
-                  <p>
-                    Пешеходные сценарии, инклюзия, комфорт микроклимата, свет и сценография публичных мест —
-                    инструменты, которые ощущаются «телом», а не только читаются в стратегии.
-                  </p>
-                </article>
-                <article class="program-item program-item--vip">
-                  <div class="program-item__head">
-                    <span class="program-time">15:30–17:00</span>
-                    <div class="program-badges">
-                      <span class="badge badge--closed">Спецсессия</span>
-                      <span class="badge badge--vip">Закрытый вход</span>
-                    </div>
-                  </div>
-                  <h3>Специальная сессия по ИИ и данным в управлении городом</h3>
-                  <p>
-                    Для ограниченного состава участников: сценарии ответственного внедрения ИИ, работа с
-                    городскими массивами данных и рисками автоматизации сервисов.
-                  </p>
-                </article>
-                <article class="program-item">
-                  <div class="program-item__head">
-                    <span class="program-time">17:30–19:30</span>
-                    <div class="program-badges"><span class="badge">Инсайт-сессия</span></div>
-                  </div>
-                  <h3>«Лучшие практики и кейсы развития территорий»</h3>
-                  <p>
-                    Сборник ускоренных кейсов: что сработало в других регионах и что можно адаптировать у моря
-                    уже в ближайшие сезоны.
-                  </p>
-                </article>
-              </div>
-              <div class="program-extras">
-                <h3>Дополнительные программы</h3>
-                <div class="timeline">
-                  <article class="program-item">
-                    <div class="program-item__head">
-                      <span class="program-time">20:30 · вечер</span>
-                      <div class="program-badges"><span class="badge">Культура</span></div>
-                    </div>
-                    <h3>Кинопоказ в дружественном формате</h3>
-                    <p>
-                      Фильм-размышление о городе, среде и людях как завершение интеллектуального дня —
-                      без обязательной лекционной части, с живым обсуждением в лобби.
-                    </p>
-                  </article>
-                  <article class="program-item">
-                    <div class="program-item__head">
-                      <span class="program-time">Дневной слот · уточняется</span>
-                      <div class="program-badges"><span class="badge">Практика</span></div>
-                    </div>
-                    <h3>Проектная мастерская</h3>
-                    <p>
-                      Рабочая группа для команд, готовых выйти на чертеж и стратегию: фасилитация, шаблоны
-                      решений и рецензия экспертов на пилотных идеях для территории.
-                    </p>
-                  </article>
-                </div>
-              </div>
+            <div class="field">
+              <label for="c-email">Эл. почта</label>
+              <input id="c-email" name="email" type="email" autocomplete="email" required placeholder="email@domain.com" />
             </div>
+            <div class="field">
+              <label for="c-msg">Сообщение</label>
+              <textarea id="c-msg" name="message" required placeholder="Формат участия, вопросы"></textarea>
+            </div>
+            <button type="submit" class="btn btn-fill">Отправить</button>
+            <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+          </form>
+          <div class="map-wrap">
+            <iframe
+              title="Карта · Геленджик"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=38.042%2C44.545%2C38.095%2C44.572&layer=mapnik"
+            ></iframe>
           </div>
         </div>
       </section>
+
+      <p class="foot-copy">© 2026 Форум «Горы и Город». Геленджик Арена.</p>
     </main>
 
-    <footer class="site-footer" id="contact">
-      <div class="footer-grid">
-        <div>
-          <div class="footer-block glass-panel">
-            <h2 class="footer-heading">Организаторы и миссия площадки</h2>
-            <p>
-              <strong>Университет Иннополис</strong> выступает технологическим визионером форума: мы привносим
-              в городскую повестку компетенции в области ИТ, данных и инженерного предпринимательства, чтобы
-              разговор о среде опирался на доказательную базу.
-            </p>
-            <p>
-              <strong>Геленджик Арена</strong> — главная культурно-деловая площадка региона: пространство,
-              где встречаются концертный формат и деловая динамика, где город демонстрирует свою открытость
-              гостю и уважение к жителю.
-            </p>
-            <div class="partner-plaque" role="note">
-              Разработчик и креативный партнёр концепции — консалтингово-аналитическая группа «ИИнтеграция».
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="footer-block glass-panel">
-            <h2 class="footer-heading">Контакты и сопровождение</h2>
-            <p>
-              Напишите нам о участии, партнёрстве или медиааккредитации:
-              <a class="contact-mail" href="mailto:dm.martyshenko@gmail.com">dm.martyshenko@gmail.com</a>.
-            </p>
-            <p>
-              Форма обратной связи подключается к рабочему аккаунту организаторов. После отправки заявки
-              команда форума свяжется с вами для уточнения формата участия.
-            </p>
-            <div class="contact-slot">
-              <div id="google-form-embed-host" class="google-form-embed-host" hidden></div>
-              <form id="contact-form" class="contact-form" novalidate>
-                <p id="form-hint-native" class="form-hint-native">
-                  Если встроенная форма не отображается, воспользуйтесь полями ниже — сообщение будет
-                  отправлено организаторам.
-                </p>
-                <div class="field">
-                  <label for="c-name">Имя и организация</label>
-                  <input id="c-name" name="name" type="text" autocomplete="name" placeholder="Например, Анна · Городской штаб" />
-                </div>
-                <div class="field">
-                  <label for="c-email">Эл. почта</label>
-                  <input id="c-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com" />
-                </div>
-                <div class="field">
-                  <label for="c-msg">Сообщение</label>
-                  <textarea id="c-msg" name="message" required placeholder="Формат участия, вопросы, предложения по сессиям"></textarea>
-                </div>
-                <button type="submit" class="btn btn--primary">Отправить</button>
-                <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
-              </form>
-            </div>
-            <div class="social-row" aria-label="Социальные сети">
-              <a href="https://t.me/" aria-label="Telegram" target="_blank" rel="noopener noreferrer">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path
-                    d="M11.944 20A1 1 0 0 1 11 19.09l.8-4.26-5.89 1.74a1 1 0 0 1-1.18-1.28l6-14a1 1 0 0 1 1.87.14l6 14a1 1 0 0 1-.96 1.36l-7.34-.43-.28 4.06a1 1 0 0 1-.81.88Zm-.35-6.18l-.35 1.87 2.15-2.68 4.9.29-5.7-6.1-7.89 3.7 6.89-1.48Z"
-                  />
-                </svg>
-              </a>
-              <a href="https://vk.com/" aria-label="ВКонтакте" target="_blank" rel="noopener noreferrer">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path
-                    d="M15.07 2H8.93C3.33 2 2 3.33 2 8.93v6.14C2 20.67 3.33 22 8.93 22h6.14c5.6 0 6.93-1.33 6.93-6.93V8.93C22 3.33 20.67 2 15.07 2zm3.15 14.27h-1.46c-.55 0-.72-.44-1.71-1.45-.86-.81-1.24-.92-1.45-.92-.3 0-.38.08-.38.47v1.32c0 .33-.11.53-1 .53-1.48 0-3.13-.89-4.29-2.54-1.74-2.44-2.22-4.28-2.22-4.66 0-.18.08-.35.47-.35h1.46c.35 0 .48.16.62.54.67 1.95 1.79 3.66 2.25 3.66.17 0 .25-.08.25-.5v-1.95c-.05-.87-.55-1.45-.55-1.61 0-.07.06-.13.17-.13h2.29c.28 0 .38.15.38.48v2.65c0 .28.13.39.22.39.17 0 .31-.1.63-.4 2.47-2.78 3.16-4.37 3.16-4.37.17-.35.29-.53.73-.53h1.46c.48 0 .06.39.06.39-.36 1.15-2.43 3.94-2.43 3.94-.25.32-.34.47 0 .8.24.24.88.88.96.96.9.9 1.5 1.45 1.8 1.56.37.15.64.15.64.48v-.06z"
-                  />
-                </svg>
-              </a>
-              <a href="https://youtube.com/" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path
-                    d="M23.5 7.2c-.2-1.8-1-2.8-2.1-3.2C19 3.5 12 3.5 12 3.5s-7 0-9.4.5C1.5 4.4.7 5.4.5 7.2 0 9.2 0 12 0 12s0 2.8.5 4.8c.2 1.8 1 2.8 2.1 3.2 2.6.5 9.4.5 9.4.5s7 0 9.4-.5c1.1-.4 1.9-1.4 2.1-3.2.5-2 .5-4.8.5-4.8s0-2.8-.5-4.8zM9.5 15.5V8.5L16 12l-6.5 3.5z"
-                  />
-                </svg>
-              </a>
-            </div>
-            <p class="map-hint">Карта проезда ориентирована на Геленджик Арену — уточните парковку и вход для делегатов у координаторов.</p>
-            <div class="map-embed">
-              <iframe
-                title="Карта · Геленджик"
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=38.042%2C44.545%2C38.095%2C44.572&layer=mapnik"
-              ></iframe>
-            </div>
-          </div>
-        </div>
-      </div>
-      <p class="footer-copy">
-        © 2026 Форум «Горы и Город». Иннополис · Геленджик Арена · ИИнтеграция. Все права на материалы сайта
-        принадлежат организаторам.
-      </p>
-    </footer>
+    <nav class="bottom-nav" aria-label="Быстрая навигация">
+      <a href="#program" data-nav="program"><span>📋</span><span>Программа</span></a>
+      <a href="#speakers" data-nav="speakers"><span>🎙</span><span>Спикеры</span></a>
+      <a href="#venue" data-nav="venue"><span>🏟</span><span>Площадка</span></a>
+      <a href="#ai-pulse" data-nav="ai-pulse"><span>📊</span><span>AI-пульс</span></a>
+      <a href="#voting" data-nav="voting"><span>🔥</span><span>Голосование</span></a>
+    </nav>
 
-    <a href="#top" class="to-top" aria-label="Наверх страницы">
-      <span aria-hidden="true">↑</span>
-    </a>
+    <a href="#top" class="to-top" aria-label="Наверх">↑</a>
 
     <script src="google-form-config.js"></script>
     <script src="main.js" defer></script>
