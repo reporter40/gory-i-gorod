@@ -679,7 +679,7 @@
             ? ""
             : `<button type="button" class="vote-btn" data-slot="${sl.id}" aria-label="Интересно">👍 Интересно <span class="vote-n">${cnt}</span></button>`;
         const fmt = sl.format ? `<span class="slot-format">${escapeHtml(sl.format)}</span>` : "";
-        const sp = sl.speaker ? `<p class="slot-sp">${escapeHtml(sl.speaker)}</p>` : "";
+        const sp = sl.speaker ? `<p class="slot-sp">${inlineBoldToHtml(sl.speaker)}</p>` : "";
         const tbd = sl.tbd ? '<span class="badge badge--tbd">TBD</span>' : "";
         return `
 <article class="slot-card${isBlock ? " slot-card--block" : ""}" id="slot-${sl.id}">
@@ -711,6 +711,20 @@
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;");
+  }
+
+  /** Данные слотов используют **Имя** как в промпте — превращаем в <strong> без сырого HTML. */
+  function inlineBoldToHtml(s) {
+    if (!s) return "";
+    return String(s)
+      .split(/(\*\*[^*]+\*\*)/g)
+      .map((part) => {
+        if (part.startsWith("**") && part.endsWith("**") && part.length >= 4) {
+          return `<strong>${escapeHtml(part.slice(2, -2))}</strong>`;
+        }
+        return escapeHtml(part);
+      })
+      .join("");
   }
 
   function renderSpeakers(root) {
@@ -774,7 +788,7 @@
 </section>
 <section class="pulse-block">
   <h3>Слот программы</h3>
-  <p class="pulse-now">${now ? `<strong>Сейчас:</strong> ${escapeHtml(now.title)}${now.speaker ? ` — ${escapeHtml(now.speaker)}` : ""}` : '<span class="muted">Нет активного слота по расписанию</span>'}</p>
+  <p class="pulse-now">${now ? `<strong>Сейчас:</strong> ${escapeHtml(now.title)}${now.speaker ? ` — ${inlineBoldToHtml(now.speaker)}` : ""}` : '<span class="muted">Нет активного слота по расписанию</span>'}</p>
   <p class="pulse-next">${
     next
       ? `<strong>Следующее через ${untilNextMin != null ? untilNextMin : "…"} мин.:</strong> ${escapeHtml(next.title)}`
