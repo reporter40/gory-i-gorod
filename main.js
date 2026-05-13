@@ -480,12 +480,14 @@
     title: "TBD",
     speaker: "TBD",
     tbd: true,
+    noVote: true,
     progress: true,
   });
   slotRow("d2-main-tbd2", 2, "main", "17:10", "17:30", {
     title: "TBD",
     speaker: "TBD",
     tbd: true,
+    noVote: true,
     progress: true,
   });
   slotRow("d2-main-close", 2, "main", "17:30", "18:00", {
@@ -580,28 +582,40 @@
     });
   }
 
+  const venueOrder = /** @type {const} */ ({ main: 0, small: 1, kubsu: 2 });
+
   /** @returns {{ now: Slot|null, next: Slot|null, untilNextMin: number|null }} */
   function liveNowNext() {
     const t = Date.now();
-    const ordered = [...VISIBLE_SLOTS].sort((a, b) => slotStartMs(a) - slotStartMs(b));
-    let now = null;
-    let next = null;
-    for (let i = 0; i < ordered.length; i += 1) {
-      const sl = ordered[i];
+    const pri = (v) => venueOrder[v] ?? 99;
+    const sorted = [...VISIBLE_SLOTS].sort(
+      (a, b) => slotStartMs(a) - slotStartMs(b) || pri(a.venue) - pri(b.venue)
+    );
+
+    const active = sorted.filter((sl) => {
       const a = slotStartMs(sl);
       const b = slotEndMs(sl);
-      if (t >= a && t < b) {
-        now = sl;
-        next = ordered[i + 1] || null;
-        const untilNext = next ? Math.max(0, Math.round((slotStartMs(next) - t) / 60000)) : null;
-        return { now, next, untilNextMin: untilNext };
-      }
-      if (t < a) {
-        next = sl;
-        return { now: null, next, untilNextMin: Math.max(0, Math.round((a - t) / 60000)) };
-      }
+      return t >= a && t < b && !sl.block;
+    });
+    active.sort((a, b) => pri(a.venue) - pri(b.venue) || slotStartMs(a) - slotStartMs(b));
+    const now = active.length ? active[0] : null;
+
+    /** @returns {Slot[]} */
+    const startsFrom = (ms) =>
+      sorted
+        .filter((sl) => !sl.block && slotStartMs(sl) >= ms)
+        .sort((a, b) => slotStartMs(a) - slotStartMs(b) || pri(a.venue) - pri(b.venue));
+
+    let next = null;
+    let untilNextMin = null;
+    if (now) {
+      const after = startsFrom(slotEndMs(now));
+      next = after.find((sl) => sl.id !== now.id) || after[0] || null;
+    } else {
+      next = sorted.find((sl) => !sl.block && t < slotStartMs(sl)) || null;
     }
-    return { now: null, next: null, untilNextMin: null };
+    if (next) untilNextMin = Math.max(0, Math.round((slotStartMs(next) - t) / 60000));
+    return { now, next, untilNextMin };
   }
 
   /** Progress: главный зал, текущий календарный день программы или выбранный день если вне диапазона */
@@ -737,7 +751,7 @@
       .sort((a, b) => b.n - a.n)
       .slice(0, 5);
     const { now, next, untilNextMin } = liveNowNext();
-    const curDay = now ? now.day : Date.now() >= atLocal(DAY_ISO[2], "00:00") ? 2 : 1;
+    const curDay = now ? now.day : (Date.now() >= atLocal(DAY_ISO[2], "00:00") ? 2 : 1);
 
     const prog = dayProgress(curDay);
 
@@ -803,7 +817,7 @@
       .sort((a, b) => b.n - a.n);
 
     root.innerHTML = `
-<div class="heat-legend"><span>Gold</span><span>Mid</span><span>Low</span></div>
+<div class="heat-legend"><span>Золото (макс.)</span><span>Средний</span><span>Низкий</span></div>
 <ul class="heat-list">${rows
       .map(
         ({ s, pct }) =>
