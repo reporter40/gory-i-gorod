@@ -520,6 +520,19 @@
 
   const DAY_ISO = { 1: "2026-05-16", 2: "2026-05-17" };
 
+  /** Календарная фаза форума по локальному времени устройства (дни 16–17 мая 2026). */
+  function localForumPhase(ts = Date.now()) {
+    const d = new Date(ts);
+    const y = d.getFullYear();
+    const m = d.getMonth() + 1;
+    const day = d.getDate();
+    if (y < 2026 || (y === 2026 && m < 5) || (y === 2026 && m === 5 && day < 16)) return "pre";
+    if (y > 2026 || (y === 2026 && m > 5) || (y === 2026 && m === 5 && day > 17)) return "post";
+    if (day === 16) return "d1";
+    if (day === 17) return "d2";
+    return "post";
+  }
+
   function slotStartMs(sl) {
     return atLocal(DAY_ISO[sl.day], sl.start);
   }
@@ -765,9 +778,28 @@
       .sort((a, b) => b.n - a.n)
       .slice(0, 5);
     const { now, next, untilNextMin } = liveNowNext();
-    const curDay = now ? now.day : (Date.now() >= atLocal(DAY_ISO[2], "00:00") ? 2 : 1);
 
-    const prog = dayProgress(curDay);
+    let progressHeading = "";
+    let progressLabel = "";
+    if (now) {
+      progressHeading = now.day === 1 ? "16 мая" : "17 мая";
+      progressLabel = dayProgress(now.day).label;
+    } else {
+      const phase = localForumPhase();
+      if (phase === "pre") {
+        progressHeading = "16–17 мая 2026";
+        progressLabel = "Форум проходит **16 и 17 мая** — здесь появится прогресс по главному залу в эти дни.";
+      } else if (phase === "post") {
+        progressHeading = "16–17 мая 2026";
+        progressLabel = "Форум завершён. Спасибо за участие!";
+      } else if (phase === "d1") {
+        progressHeading = "16 мая";
+        progressLabel = dayProgress(1).label;
+      } else {
+        progressHeading = "17 мая";
+        progressLabel = dayProgress(2).label;
+      }
+    }
 
     const tagTot = tagTotalsFromVotes(m);
     const hotTag = Object.entries(tagTot).sort((a, b) => b[1] - a[1])[0];
@@ -797,10 +829,8 @@
 </section>
 <section class="pulse-block">
   <h3>Прогресс дня (Главный зал)</h3>
-  <p class="muted">Правило: блоки содержания (без пауз регистрация/еда/перерывы) текущего дня</p>
-  <p><strong>${curDay === 1 ? "16 мая" : "17 мая"}:</strong> ${
-      prog.passed != null ? escapeHtml(prog.label) : escapeHtml(prog.label)
-    }</p>
+  <p class="muted">Правило: блоки содержания (без пауз регистрация/еда/перерывы) текущего дня · форум <strong>16–17 мая 2026</strong></p>
+  <p><strong>${escapeHtml(progressHeading)}:</strong> ${inlineBoldToHtml(progressLabel)}</p>
 </section>
 <section class="pulse-block">
   <h3>Топ‑5 по «Интересно»</h3>
