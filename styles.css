@@ -304,6 +304,14 @@ a:hover {
   font-size: 1rem;
 }
 
+.hero-lead {
+  margin: 0 0 20px;
+  max-width: 52ch;
+  color: var(--text);
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
 .hero-actions {
   display: flex;
   flex-wrap: wrap;

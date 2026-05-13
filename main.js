@@ -4,506 +4,207 @@
 
   /** @typedef {{ id: string, day: 1 | 2, venue: 'main' | 'small' | 'kubsu', start: string, end?: string|null, format?: string, title: string, speaker?: string, block?: boolean, tbd?: boolean, noVote?: boolean, progress?: boolean, tags?: string[], hidden?: boolean }} Slot */
 
+  const D = window.GORY_I_GOROD_2026_DATA;
+  if (!D) console.error('gory-i-gorod: подключите data.js перед main.js');
+
+  const EVENT = D.EVENT;
+  const DAY_ISO = { 1: EVENT.day1date, 2: EVENT.day2date };
+  const DATA_SPEAKERS = D.SPEAKERS;
+  const PROGRAM = D.PROGRAM;
+  const PROGRAM_EXTRA = D.PROGRAM_EXTRA;
+
+  const speakerById = Object.fromEntries(DATA_SPEAKERS.map((s) => [s.id, s]));
+
   /** @type {Slot[]} */
   const SLOTS = [];
 
-  /** @typedef {{ key: string, name: string, role: string, topic: string, slotIds: string[], times: string }} Speaker */
-
-  /** @type {Speaker[]} */
-  const SPEAKERS = [
-    { key: "dontsov", name: "Донцов Егор", role: "Директор сектора ОКН ГК Спектрум", topic: "О проблемах, практических кейсах, туризме, реновации советского наследия, управлении инвестициями", slotIds: ["d1-main-1030", "d1-main-1135"], times: "День 1, 10:30 / модератор дискуссии — 11:35" },
-    { key: "dyaykin", name: "Дяйкин Сергей", role: 'Исполнительный директор ООО «Аэропорт Геленджик»', topic: "Инфраструктурный баланс, инвестиции и ГЧП", slotIds: ["d1-main-1045", "d1-main-1135"], times: "День 1, 10:45 / 11:35" },
-    { key: "geresh", name: "Гереш Елена", role: "Директор по развитию Шато де Талю, Мантера Групп", topic: "«Море здесь у всех. Такое — только у нас. Шато де Талю и новый образ Геленджика»; также: «НЕЛЬЗЯ, НО ЕСЛИ ОЧЕНЬ ХОЧЕТСЯ, ТО МОЖНО…» + пленарные и интервью", slotIds: ["d1-main-1100", "d1-main-1615", "d1-main-1135", "d1-main-1645", "d2-main-1200-int"], times: "День 1, 11:00 / 11:35 / 16:15 / 16:45; День 2, 12:00" },
-    { key: "kangin", name: "Кангин Алексей", role: 'Зам. исп. директора, АНО «Корпорация развития «Геленджик-2035»»', topic: "Новая философия экономического роста; «Туризм в эпоху постмодерна»", slotIds: ["d1-main-1115", "d1-main-1630", "d1-main-1135", "d1-main-1645"], times: "День 1, 11:15 / 16:30 / 11:35 / 16:45" },
-    { key: "voronkov", name: "Воронков Михаил", role: "Начальник управления архитектуры и градостроительства, главный архитектор Туапсинского МО", topic: "—", slotIds: ["d1-main-1130", "d1-main-1135"], times: "День 1, 11:30 / 11:35" },
-    { key: "pyankova", name: "Пьянкова Анна Александровна", role: 'Директор центра поддержки и развития современного искусства «ЗА АРТ»', topic: "«От газировки к наукограду: опыт ребрендинга и социокультурного перепрограммирования Черноголовки»", slotIds: ["d1-main-1330", "d1-small-1630", "d1-small-after"], times: "День 1, 13:30 · Малый зал — кинопоказ и мастерская" },
-    { key: "bitarova", name: "Битарова Мария Анатольевна", role: 'Заместитель директора ГКУ КК «Центр регионального развития»', topic: "«Роль креативных кластеров в экономическом развитии территорий: от идеи к реализации»", slotIds: ["d1-main-1345", "d1-main-1645"], times: "День 1, 13:45 / 16:45" },
-    { key: "petruk", name: "Петрук Иван Владимирович", role: 'Основатель и руководитель Арт-парка «Острова Ершовы»', topic: "«Развитие арт-парка с помощью событий на стыке образования и творчества»", slotIds: ["d1-main-1400"], times: "День 1, 14:00" },
-    { key: "tyutin", name: "Тютин Владимир", role: 'Технический директор ООО «Аэропорт Геленджик»', topic: "«Архитектура, созвучная природе»", slotIds: ["d1-main-1415"], times: "День 1, 14:15" },
-    { key: "astakhov", name: "Астахов Сергей", role: 'Доктор геолого-минералогических наук, архитектор и руководитель проекта Южность', topic: "«Культурно-спортивный центр в тренде деурбанизации. Архитектура и экономические драйверы»", slotIds: ["d1-main-1430", "d1-main-1645"], times: "День 1, 14:30 / 16:45" },
-    { key: "morozova", name: "Морозова Марина Александровна", role: 'Генеральный директор АНО «Центр компетенций в сфере туризма и гостеприимства»', topic: "«Креативная экосистема туристского центра на примере Санкт-Петербурга» (онлайн)", slotIds: ["d1-main-1445"], times: "День 1, 14:45" },
-    { key: "khalimova", name: "Халимова Аниса", role: "Руководитель отдела развития туризма г. Иннополис", topic: "«Город, одинаково удобный и для местных, и для туристов»", slotIds: ["d1-main-1500"], times: "День 1, 15:00" },
-    { key: "malikova", name: "Маликова Дарья", role: 'Руководитель школы медиации «Индустриальный эксперимент»', topic: "«Потенциал индустриального наследия в развитии территорий»", slotIds: ["d1-main-1545", "d1-small-1630", "d1-small-after", "d2-main-1100-pl"], times: "День 1, 15:45 · Малый зал; День 2, модерация пленарной" },
-    { key: "kim", name: "Ким Белов", role: "Сценарист, директор по коммуникациям", topic: "«Модное или вечное? Как и зачем формировать вкус вашей аудитории»", slotIds: ["d1-main-1600", "d1-main-1645"], times: "День 1, 16:00 / модератор пленарной — 16:45" },
-    { key: "andreev", name: "Андреев Илья", role: 'Основатель центра современной культуры «Рельсы», Тверь / МЫ ТУТ', topic: '«Финансовая устойчивость культурных пространств. Продюсирование локального. Опыт КЦ «Рельсы» и сообщества МЫ ТУТ»', slotIds: ["d2-main-1000", "d2-main-1100-pl"], times: "День 2, 10:00 / 11:00" },
-    { key: "avrutskaya", name: "Авруцкая Ирина Гарриевна", role: "Член национального экспертного совета по развитию кадрового потенциала в сфере туризма и гостеприимства (Минэкономразвития РФ). Пушкинские Горы", topic: "«Социокультурное и социоэкономическое развитие малого поселения на примере Пушкинских Гор. Гастрономический туризм как драйвер развития экономики территории»", slotIds: ["d2-main-1015", "d2-main-1100-pl"], times: "День 2, 10:15 / 11:00" },
-    { key: "martyshenko", name: "Мартышенко Дмитрий Юрьевич", role: 'Директор консалтингово-аналитической группы «Интеграция», консультант по управлению и организационному развитию', topic: "«Герои не умирают: первая национальная GIS/VR экосистема сохранения исторической памяти на основе ИИ»", slotIds: ["d2-main-1030"], times: "День 2, 10:30" },
-    { key: "popelyuk", name: "Попельнюк Кирилл", role: "Co-founder & Креативный директор, ИИнтеграция", topic: "«Радар клиентов: как AI-система находит сигналы спроса раньше, чем их видят конкуренты»", slotIds: ["d2-main-1045"], times: "День 2, 10:45" },
-    { key: "nagdev", name: "Vishal Nagdev", role: "Сооснователь Pow Wow Marketing и EVENTFAQS Media (онлайн)", topic: "«Как события превращают локацию в дестинацию» — интервью", slotIds: ["d2-main-1200-int"], times: "День 2, 12:00" },
-    { key: "shtanko", name: "Штанько Татьяна Викторовна", role: 'Руководитель отдела городских проектов АНО «Фонд развития города Иннополис»', topic: "«Терапевтический ландшафт: социальное садоводство и природные маршруты в системе благополучия жителей»", slotIds: ["d2-main-1400"], times: "День 2, 14:00" },
-    { key: "komkova", name: "Комкова Елена Валерьевна", role: "Основатель студии LËNKA", topic: "«Локальная идентичность как инструмент устойчивого роста»", slotIds: ["d2-main-1420"], times: "День 2, 14:20" },
-    { key: "chernets", name: "Чернец Елена", role: "Эксперт по социокультурным исследованиям территорий", topic: "«Как проводить исследования для туристических стратегий и проектов»", slotIds: ["d2-main-1440"], times: "День 2, 14:40" },
-    { key: "kozyritskaya", name: "Козырицкая Анастасия", role: "Помощник Главы Альметьевска по развитию городской среды", topic: "«Дизайн для людей: как Альметьевск создаёт комфортную среду через осознанную урбанистику»", slotIds: ["d2-main-1500"], times: "День 2, 15:00" },
-    { key: "khabibullin", name: "Хабибуллин Айрат Рашатович", role: 'Директор АНО «Фонд развития города Иннополис», советник мэра г. Иннополис', topic: "«Цифровые сервисы в управлении городом — кейс Иннополиса»", slotIds: ["d2-main-1550"], times: "День 2, 15:50" },
-    { key: "komkov", name: "Комков Михаил", role: "Технический директор", topic: "«Анализ восприятия интернет-ресурсов по привлечению туристического потока в малые города»", slotIds: ["d2-main-1610"], times: "День 2, 16:10" },
-    { key: "starkov", name: "Старков Александр", role: 'Партнёр агентства «Городские герои», руководитель экспертной группы по развитию креативных индустрий в Башкортостане', topic: "«Креативные индустрии как инструмент развития малых городов: кейс Бирска и перспективы для регионов»", slotIds: ["d2-main-1630"], times: "День 2, 16:30" },
-  ];
-
-  function slotRow(
-    id,
-    day,
-    venue,
-    start,
-    end,
-    opts
-  ) {
-    SLOTS.push({
-      id,
-      day,
-      venue,
-      start,
-      end,
-      format: opts.format,
-      title: opts.title,
-      speaker: opts.speaker,
-      block: opts.block,
-      tbd: opts.tbd,
-      noVote: opts.noVote,
-      progress: opts.progress,
-      tags: opts.tags,
-      hidden: opts.hidden,
-    });
+  function hallToVenue(hall) {
+    if (hall === 'Малый зал') return 'small';
+    if (hall === 'КубГУ') return 'kubsu';
+    return 'main';
   }
 
-  slotRow("d1-main-0800", 1, "main", "08:00", "10:00", {
-    format: "Регистрация (Фойе)",
-    title: "Регистрация участников. Приветственный кофе. Нетворкинг",
-    speaker: "Волонтёры, организаторы",
-    noVote: true,
-    progress: false,
-  });
-  slotRow("d1-main-1000", 1, "main", "10:00", "10:15", {
-    format: "Торжественное открытие",
-    title: 'Открытие форума «Горы и Город – 2026»',
-    speaker: "Организаторы форума. Представители администрации Геленджика. Почётные гости",
-    progress: false,
-  });
-  slotRow("d1-main-bl-p1", 1, "main", "10:15", null, {
-    block: true,
-    format: "",
-    title: 'ПЛЕНАРНАЯ СЕССИЯ №1 · «Горы и Город: Геленджик сегодня и завтра — проекты, которые меняют города»',
-    noVote: true,
-    progress: false,
-  });
-  slotRow("d1-main-1015", 1, "main", "10:15", "10:30", {
-    format: "Пленарная сессия (с модератором)",
-    title: "Приветствие и приглашение спикеров",
-    speaker: "—",
-    progress: true,
-  });
-  slotRow("d1-main-1030", 1, "main", "10:30", "10:45", {
-    format: "Пленарная сессия (с модератором)",
-    title: "О проблемах, практических кейсах, туризме, реновации советского наследия, управлении инвестициями",
-    speaker: "**Донцов Егор** — Директор сектора ОКН ГК Спектрум",
-    tags: ["пленар", "город", "инвестиции"],
-    progress: true,
-  });
-  slotRow("d1-main-1045", 1, "main", "10:45", "11:00", {
-    format: "Пленарная сессия (с модератором)",
-    title: "Инфраструктурный баланс, инвестиции и ГЧП",
-    speaker: "**Сергей Дяйкин** — Исполнительный директор ООО «Аэропорт Геленджик»",
-    tags: ["ГЧП", "инфраструктура"],
-    progress: true,
-  });
-  slotRow("d1-main-1100", 1, "main", "11:00", "11:15", {
-    format: "Пленарная сессия (с модератором)",
-    title: "«Море здесь у всех. Такое — только у нас. Шато де Талю и новый образ Геленджика»",
-    speaker: "**Гереш Елена** — Директор по развитию Шато де Талю, Мантера Групп",
-    tags: ["бренд", "туризм"],
-    progress: true,
-  });
-  slotRow("d1-main-1115", 1, "main", "11:15", "11:30", {
-    format: "Пленарная сессия (с модератором)",
-    title: "Новая философия экономического роста",
-    speaker:
-      "**Кангин Алексей** — Зам. исп. директора, АНО «Корпорация развития «Геленджик-2035»» (Резерв/Замена: Мальцева)",
-    tags: ["экономика", "стратегия"],
-    progress: true,
-  });
-  slotRow("d1-main-1130", 1, "main", "11:30", "11:35", {
-    format: "Пленарная сессия (с модератором)",
-    title: "—",
-    speaker:
-      "**Воронков Михаил** — Начальник управления архитектуры и градостроительства, главный архитектор Туапсинского МО",
-    progress: true,
-  });
-  slotRow("d1-main-1135", 1, "main", "11:35", "12:30", {
-    format: "Дискуссия",
-    title: "Общая дискуссия",
-    speaker: "Модератор: Донцов Егор. Спикеры: Дяйкин С., Гереш Е., Кангин А., Воронков М.",
-    tags: ["дискуссия"],
-    progress: true,
-  });
-  slotRow("d1-main-1230", 1, "main", "12:30", "12:45", {
-    format: "Вопрос-ответ с залом",
-    title: "Вопрос-ответ с залом",
-    speaker: "—",
-    progress: true,
-  });
-  slotRow("d1-main-lunch", 1, "main", "12:45", "13:30", {
-    format: "Обед (Ресторан)",
-    title: "Обед. Свободное время",
-    speaker: "—",
-    noVote: true,
-    progress: false,
-  });
-  slotRow("d1-main-bl-s1", 1, "main", "13:30", null, {
-    block: true,
-    title: 'БЛОК СОЛЬНЫХ ВЫСТУПЛЕНИЙ №1 · «Устойчивое развитие туристических городов»',
-    noVote: true,
-    progress: false,
-  });
-  slotRow("d1-main-1330", 1, "main", "13:30", "13:45", {
-    title: "«От газировки к наукограду: опыт ребрендинга и социокультурного перепрограммирования Черноголовки»",
-    speaker:
-      "**Пьянкова Анна Александровна** — Директор центра поддержки и развития современного искусства «ЗА АРТ»",
-    tags: ["ребрендинг", "город"],
-    progress: true,
-  });
-  slotRow("d1-main-1345", 1, "main", "13:45", "14:00", {
-    title: "«Роль креативных кластеров в экономическом развитии территорий: от идеи к реализации»",
-    speaker:
-      "**Битарова Мария Анатольевна** — Заместитель директора ГКУ КК «Центр регионального развития»",
-    tags: ["креатив", "развитие"],
-    progress: true,
-  });
-  slotRow("d1-main-1400", 1, "main", "14:00", "14:15", {
-    title: "«Развитие арт-парка с помощью событий на стыке образования и творчества»",
-    speaker: "**Петрук Иван Владимирович** — Основатель и руководитель Арт-парка «Острова Ершовы»",
-    tags: ["образование", "арт-парк"],
-    progress: true,
-  });
-  slotRow("d1-main-bl-s2", 1, "main", "14:15", null, {
-    block: true,
-    title: 'БЛОК СОЛЬНЫХ ВЫСТУПЛЕНИЙ №2 · «Город для людей: качество жизни и комфорт среды»',
-    noVote: true,
-    progress: false,
-  });
-  slotRow("d1-main-1415", 1, "main", "14:15", "14:30", {
-    title: "«Архитектура, созвучная природе»",
-    speaker: "**Владимир Тютин** — Технический директор ООО «Аэропорт Геленджик»",
-    tags: ["архитектура", "экология"],
-    progress: true,
-  });
-  slotRow("d1-main-1430", 1, "main", "14:30", "14:45", {
-    title: "«Культурно-спортивный центр в тренде деурбанизации. Архитектура и экономические драйверы»",
-    speaker:
-      "**Астахов Сергей** — Доктор геолого-минералогических наук, архитектор и руководитель проекта Южность",
-    tags: ["архитектура", "город"],
-    progress: true,
-  });
-  slotRow("d1-main-1445", 1, "main", "14:45", "15:00", {
-    title: "«Креативная экосистема туристского центра на примере Санкт-Петербурга» (онлайн)",
-    speaker:
-      "**Морозова Марина Александровна** — Генеральный директор АНО «Центр компетенций в сфере туризма и гостеприимства»",
-    tags: ["туризм", "креатив"],
-    progress: true,
-  });
-  slotRow("d1-main-1500", 1, "main", "15:00", "15:15", {
-    title: "«Город, одинаково удобный и для местных, и для туристов»",
-    speaker: "**Аниса Халимова** — Руководитель отдела развития туризма г. Иннополис",
-    tags: ["туризм", "город"],
-    progress: true,
-  });
-  slotRow("d1-main-break", 1, "main", "15:15", "15:45", {
-    format: "Кофе-брейк (Фойе)",
-    title: "Кофе-брейк",
-    speaker: "—",
-    noVote: true,
-    progress: false,
-  });
-  slotRow("d1-main-bl-s3", 1, "main", "15:45", null, {
-    block: true,
-    title: 'БЛОК СОЛЬНЫХ ВЫСТУПЛЕНИЙ №3 · «Креативная экономика и культурная среда»',
-    noVote: true,
-    progress: false,
-  });
-  slotRow("d1-main-1545", 1, "main", "15:45", "16:00", {
-    title: "«Потенциал индустриального наследия в развитии территорий»",
-    speaker: "**Маликова Дарья** — Руководитель школы медиации «Индустриальный эксперимент»",
-    tags: ["наследие", "проблематика"],
-    progress: true,
-  });
-  slotRow("d1-main-1600", 1, "main", "16:00", "16:15", {
-    title: "«Модное или вечное? Как и зачем формировать вкус вашей аудитории»",
-    speaker: "**Ким Белов** — Сценарист, директор по коммуникациям",
-    tags: ["коммуникации", "аудитория"],
-    progress: true,
-  });
-  slotRow("d1-main-1615", 1, "main", "16:15", "16:30", {
-    title:
-      "«НЕЛЬЗЯ, НО ЕСЛИ ОЧЕНЬ ХОЧЕТСЯ, ТО МОЖНО. Как продвигать игорный и винный туризм в нишах с жёсткими ограничениями. Опыт MANTERA»",
-    speaker: "**Гереш Елена** — Директор по развитию Шато де Талю, Мантера Групп",
-    tags: ["туризм", "бренд"],
-    progress: true,
-  });
-  slotRow("d1-main-1630", 1, "main", "16:30", "16:45", {
-    title: "«Туризм в эпоху постмодерна»",
-    speaker:
-      "**Кангин Алексей** — Зам. исп. директора, АНО «Корпорация развития «Геленджик-2035»»",
-    tags: ["туризм"],
-    progress: true,
-  });
-  slotRow("d1-main-bl-p2", 1, "main", "16:45", null, {
-    block: true,
-    title: 'ПЛЕНАРНАЯ СЕССИЯ №2 · «Туризм и креативная экономика: точки пересечения»',
-    noVote: true,
-    progress: false,
-  });
-  slotRow("d1-main-1645", 1, "main", "16:45", "17:40", {
-    format: "Пленарная сессия",
-    title: "Обсуждение синергии туристической отрасли и креативных индустрий",
-    speaker:
-      "Модератор: Ким Белов. Спикеры: Астахов С., Битарова М., Гереш Е., Кангин А.",
-    tags: ["пленар", "дискуссия", "туризм", "креатив"],
-    progress: true,
-  });
-  slotRow("d1-main-1740", 1, "main", "17:40", "17:50", {
-    format: "Вопрос-ответ с залом",
-    title: "Вопрос-ответ с залом",
-    speaker: "—",
-    progress: true,
-  });
-  slotRow("d1-main-1750", 1, "main", "17:50", "18:00", {
-    title: "Завершение дня",
-    format: "",
-    speaker: "Подведение итогов первого дня. Анонс программы второго дня · Ведущий",
-    progress: false,
-  });
-  slotRow("d1-main-dinner-sp", 1, "main", "18:00", "19:00", {
-    format: "",
-    title: "Ужин для спикеров",
-    speaker: "—",
-    noVote: true,
-    progress: false,
-  });
-  slotRow("d1-main-exc", 1, "main", "19:00", "21:00", {
-    format: "",
-    title: 'Экскурсия в «Шато де Талю»',
-    speaker: "—",
-    noVote: true,
-    progress: false,
-  });
-  slotRow("d1-main-tf2100", 1, "main", "21:00", "21:15", {
-    format: "",
-    title: "Трансфер в отель",
-    speaker: "—",
-    noVote: true,
-    progress: false,
-  });
+  function parseTimeRange(timeStr) {
+    if (!timeStr) return { start: '09:00', end: null };
+    if (/после/i.test(String(timeStr))) return { start: '18:00', end: '21:00' };
+    const s = String(timeStr).trim();
+    const m = s.match(/^(\d{1,2}:\d{2})\s*[\u2013\u2014-]\s*(\d{1,2}:\d{2})$/);
+    if (m) return { start: m[1], end: m[2] };
+    return { start: s, end: null };
+  }
 
-  slotRow("d1-small-1630", 1, "small", "16:30", "18:00", {
-    format: "Кинопоказ",
-    title:
-      'Показ и обсуждение документального фильма «Мануфактура культуры» Благотворительного фонда Владимира Потанина',
-    speaker: "Пьянкова Анна Александровна, Маликова Дарья Николаевна",
-    tags: ["кино"],
-    progress: true,
-  });
-  slotRow("d1-small-after", 1, "small", "18:00", "21:00", {
-    format: "Проектная мастерская",
-    title: "Работа с индустриальным наследием Краснодарского края. Инструменты культурного программирования",
-    speaker: "Пьянкова Анна Александровна, Маликова Дарья Николаевна",
-    tags: ["практика", "наследие"],
-    progress: true,
-  });
+  function formatTypeLabel(type) {
+    const m = {
+      service: '',
+      opening: 'Торжественное открытие',
+      closing: 'Торжественное закрытие',
+      plenary: 'Пленарная сессия',
+      solo: 'Доклад',
+      discussion: 'Дискуссия',
+      qa: 'Вопрос-ответ',
+      interview: 'Интервью',
+    };
+    return m[type] || '';
+  }
 
-  slotRow("d1-kubsu-a", 1, "kubsu", "10:00", "10:40", {
-    format: "Наставничество",
-    title: 'Презентация проекта студентов КубГУ: «Приложение МаркхотГИД»',
-    speaker: "—",
-    tags: ["студенты"],
-    progress: true,
-  });
-  slotRow("d1-kubsu-b", 1, "kubsu", "11:00", "12:30", {
-    format: "Наставничество",
-    title: 'Презентация проектов студентов КубГУ: «Ландшафтные проекты»',
-    speaker: "—",
-    tags: ["студенты"],
-    progress: true,
-  });
+  function formatSpeakerLineFromItem(item) {
+    if (item.speakerIds && item.speakerIds.length) {
+      return item.speakerIds
+        .map((id) => {
+          const sp = speakerById[id];
+          if (!sp) return `**${id}**`;
+          const on = sp.online ? ' (онлайн)' : '';
+          return `**${sp.name}**${on} — ${sp.role}`;
+        })
+        .join(' · ');
+    }
+    if (item.speakers && item.speakers.length) return item.speakers.join(' · ');
+    return '';
+  }
 
-  slotRow("d2-main-0800", 2, "main", "08:00", "10:00", {
-    format: "Регистрация (Фойе)",
-    title: "Регистрация участников. Приветственный кофе. Нетворкинг",
-    speaker: "Волонтёры, организаторы",
-    noVote: true,
-    progress: false,
-  });
-  slotRow("d2-main-bl-x1", 2, "main", "10:00", null, {
-    block: true,
-    title:
-      'БЛОК СОЛЬНЫХ ВЫСТУПЛЕНИЙ №1 · «Качество жизни, комфорт среды, инфраструктура»',
-    noVote: true,
-    progress: false,
-  });
-  slotRow("d2-main-1000", 2, "main", "10:00", "10:15", {
-    title:
-      '«Финансовая устойчивость культурных пространств. Продюсирование локального. Опыт КЦ «Рельсы» и сообщества МЫ ТУТ»',
-    speaker: "**Андреев Илья** — Основатель центра современной культуры «Рельсы», Тверь / МЫ ТУТ",
-    tags: ["культура", "устойчивость"],
-    progress: true,
-  });
-  slotRow("d2-main-1015", 2, "main", "10:15", "10:30", {
-    title:
-      "«Социокультурное и социоэкономическое развитие малого поселения на примере Пушкинских Гор. Гастрономический туризм как драйвер развития экономики территории»",
-    speaker:
-      "**Авруцкая Ирина Гарриевна** — Член национального экспертного совета по развитию кадрового потенциала в сфере туризма и гостеприимства (Минэкономразвития РФ). Пушкинские Горы",
-    tags: ["туризм", "посёлок"],
-    progress: true,
-  });
-  slotRow("d2-main-1030", 2, "main", "10:30", "10:45", {
-    title:
-      "«Герои не умирают: первая национальная GIS/VR экосистема сохранения исторической памяти на основе ИИ»",
-    speaker:
-      "**Мартышенко Дмитрий Юрьевич** — Директор консалтингово-аналитической группы «Интеграция», консультант по управлению и организационному развитию",
-    tags: ["ИИ", "память"],
-    progress: true,
-  });
-  slotRow("d2-main-1045", 2, "main", "10:45", "11:00", {
-    title: "«Радар клиентов: как AI-система находит сигналы спроса раньше, чем их видят конкуренты»",
-    speaker:
-      "**Попельнюк Кирилл** — Co-founder & Креативный директор, ИИнтеграция",
-    tags: ["ИИ", "ритейл"],
-    progress: true,
-  });
-  slotRow("d2-main-bl-p1", 2, "main", "11:00", null, {
-    block: true,
-    title:
-      'ПЛЕНАРНАЯ СЕССИЯ №1 · «Город для людей: качество жизни и комфорт среды»',
-    noVote: true,
-    progress: false,
-  });
-  slotRow("d2-main-1100-pl", 2, "main", "11:00", "11:45", {
-    format: "Пленарная сессия",
-    title:
-      "Обсуждение человекоцентричных подходов к развитию городской среды. Практики вовлечения горожан",
-    speaker:
-      "Модератор: Маликова Д. Спикеры: Андреев И., Авруцкая И.",
-    tags: ["город"],
-    progress: true,
-  });
-  slotRow("d2-main-1145", 2, "main", "11:45", "12:00", {
-    format: "Вопрос-ответ с залом",
-    title: "Вопрос-ответ с залом",
-    speaker: "—",
-    progress: true,
-  });
-  slotRow("d2-main-1200-int", 2, "main", "12:00", "13:00", {
-    format: "Интервью с онлайн-спикером",
-    title: "«Как события превращают локацию в дестинацию»",
-    speaker:
-      "**Гереш Елена** + **Vishal Nagdev** (онлайн) — сооснователь Pow Wow Marketing и EVENTFAQS Media",
-    tags: ["события", "локации"],
-    progress: true,
-  });
-  slotRow("d2-main-lunch", 2, "main", "13:00", "14:00", {
-    format: "Обед (Ресторан)",
-    title: "Организованный обед",
-    speaker: "—",
-    noVote: true,
-    progress: false,
-  });
-  slotRow("d2-main-bl-x2", 2, "main", "14:00", null, {
-    block: true,
-    title:
-      'БЛОК СОЛЬНЫХ ВЫСТУПЛЕНИЙ №2 · «Инфраструктура, ГЧП, исследования и стратегии»',
-    noVote: true,
-    progress: false,
-  });
-  slotRow("d2-main-1400", 2, "main", "14:00", "14:20", {
-    title:
-      "«Терапевтический ландшафт: социальное садоводство и природные маршруты в системе благополучия жителей»",
-    speaker:
-      "**Штанько Татьяна Викторовна** — Руководитель отдела городских проектов АНО «Фонд развития города Иннополис»",
-    tags: ["ландшафт"],
-    progress: true,
-  });
-  slotRow("d2-main-1420", 2, "main", "14:20", "14:40", {
-    title: "«Локальная идентичность как инструмент устойчивого роста»",
-    speaker:
-      "**Комкова Елена Валерьевна** — Основатель студии LËNKA",
-    tags: ["идентичность"],
-    progress: true,
-  });
-  slotRow("d2-main-1440", 2, "main", "14:40", "15:00", {
-    title: "«Как проводить исследования для туристических стратегий и проектов»",
-    speaker: "**Чернец Елена** — Эксперт по социокультурным исследованиям территорий",
-    tags: ["исследования"],
-    progress: true,
-  });
-  slotRow("d2-main-1500", 2, "main", "15:00", "15:20", {
-    title:
-      "«Дизайн для людей: как Альметьевск создаёт комфортную среду через осознанную урбанистику»",
-    speaker:
-      "**Козырицкая Анастасия** — Помощник Главы Альметьевска по развитию городской среды",
-    tags: ["дизайн", "город"],
-    progress: true,
-  });
-  slotRow("d2-main-brk", 2, "main", "15:20", "15:50", {
-    format: "Кофе-брейк (Фойе)",
-    title: "Кофе-брейк",
-    speaker: "—",
-    noVote: true,
-    progress: false,
-  });
-  slotRow("d2-main-bl-ins", 2, "main", "15:50", null, {
-    block: true,
-    title:
-      'ИНСАЙТ-СЕССИИ · «Лучшие практики и кейсы развития территорий»',
-    noVote: true,
-    progress: false,
-  });
-  slotRow("d2-main-1550", 2, "main", "15:50", "16:10", {
-    title: "«Цифровые сервисы в управлении городом — кейс Иннополиса»",
-    speaker:
-      "**Хабибуллин Айрат Рашатович** — Директор АНО «Фонд развития города Иннополис», советник мэра г. Иннополис",
-    tags: ["цифра", "управление"],
-    progress: true,
-  });
-  slotRow("d2-main-1610", 2, "main", "16:10", "16:30", {
-    title:
-      "«Анализ восприятия интернет-ресурсов по привлечению туристического потока в малые города»",
-    speaker: "**Комков Михаил** — Технический директор",
-    tags: ["туризм", "исследование"],
-    progress: true,
-  });
-  slotRow("d2-main-1630", 2, "main", "16:30", "16:50", {
-    title:
-      "«Креативные индустрии как инструмент развития малых городов: кейс Бирска и перспективы для регионов»",
-    speaker:
-      "**Старков Александр** — Партнёр агентства «Городские герои», руководитель экспертной группы по развитию креативных индустрий в Башкортостане",
-    tags: ["креатив", "маленькие города"],
-    progress: true,
-  });
-  slotRow("d2-main-tbd1", 2, "main", "16:50", "17:10", {
-    title: "TBD",
-    speaker: "TBD",
-    tbd: true,
-    noVote: true,
-    progress: true,
-  });
-  slotRow("d2-main-tbd2", 2, "main", "17:10", "17:30", {
-    title: "TBD",
-    speaker: "TBD",
-    tbd: true,
-    noVote: true,
-    progress: true,
-  });
-  slotRow("d2-main-close", 2, "main", "17:30", "18:00", {
-    format: "Торжественное закрытие",
-    title:
-      "Подведение итогов. Формулирование рекомендаций. Благодарности участникам, спикерам и партнёрам. Анонс следующего форума",
-    speaker: "",
-    progress: false,
-  });
-  slotRow("d2-main-vip", 2, "main", "18:00", "22:00", {
-    format: "",
-    title: "Торжественный фуршет (VIP)",
-    speaker: "Вечерний фуршет для VIP-гостей, спикеров и партнёров",
-    noVote: true,
-    progress: false,
-  });
+  function shouldNoVote(item) {
+    if (['service', 'opening', 'closing'].includes(item.type)) return true;
+    if (item.topic === 'TBD' && !(item.speakerIds && item.speakerIds.length)) return true;
+    if (item.type === 'qa' && !(item.speakerIds && item.speakerIds.length)) return true;
+    return false;
+  }
+
+  function shouldProgress(item) {
+    if (shouldNoVote(item)) return false;
+    if (item.block && !(item.speakerIds && item.speakerIds.length)) {
+      return item.type === 'discussion' || item.type === 'plenary';
+    }
+    return ['solo', 'plenary', 'discussion', 'qa', 'interview'].includes(item.type);
+  }
+
+  function deriveTags(item) {
+    if (!(item.speakerIds && item.speakerIds.length)) return undefined;
+    return [item.type].filter(Boolean);
+  }
+
+  function pushProgramRows(rows) {
+    let prevBlock = null;
+    for (const item of rows) {
+      const venue = hallToVenue(item.hall);
+      const { start, end } = parseTimeRange(item.time);
+
+      if (item.block) {
+        if (item.block !== prevBlock) {
+          SLOTS.push({
+            id: `${item.id}__block`,
+            day: /** @type {1|2} */ (item.day),
+            venue,
+            start,
+            end: null,
+            format: '',
+            title: item.block,
+            block: true,
+            noVote: true,
+            progress: false,
+          });
+          prevBlock = item.block;
+        }
+      } else {
+        prevBlock = null;
+      }
+
+      const spLine = formatSpeakerLineFromItem(item);
+      let formatStr = '';
+      if (item.type === 'service') {
+        if (item.topic.includes('Регистрация')) formatStr = `Регистрация (${item.hall})`;
+        else if (item.topic.includes('Кофе')) formatStr = `Кофе-брейк (${item.hall})`;
+        else formatStr = item.hall;
+      } else if (item.type === 'opening') formatStr = 'Торжественное открытие';
+      else if (item.type === 'closing') formatStr = item.day === 2 ? 'Торжественное закрытие' : '';
+      else {
+        const tl = formatTypeLabel(item.type);
+        formatStr = [tl, item.hall].filter(Boolean).join(' · ');
+      }
+
+      SLOTS.push({
+        id: item.id,
+        day: /** @type {1|2} */ (item.day),
+        venue,
+        start,
+        end,
+        format: formatStr,
+        title: item.topic,
+        speaker: spLine || undefined,
+        block: false,
+        tbd: item.topic === 'TBD',
+        noVote: shouldNoVote(item),
+        progress: shouldProgress(item),
+        tags: deriveTags(item),
+      });
+    }
+  }
+
+  function pushExtraRows() {
+    for (const ex of PROGRAM_EXTRA) {
+      const venue = hallToVenue(ex.hall);
+      const { start, end } = parseTimeRange(ex.time);
+      const item = {
+        speakerIds: ex.speakerIds,
+        speakers: ex.speakers,
+      };
+      const spLine = formatSpeakerLineFromItem(item);
+      SLOTS.push({
+        id: ex.id,
+        day: /** @type {1|2} */ (ex.day),
+        venue,
+        start,
+        end,
+        format: `${ex.format} · ${ex.hall}`,
+        title: ex.topic,
+        speaker: spLine || (ex.speakers ? ex.speakers.join(' · ') : undefined),
+        noVote: false,
+        progress: true,
+        tags: ['параллель'],
+      });
+    }
+  }
+
+  pushProgramRows(PROGRAM);
+  pushExtraRows();
+
+  function topicForSpeakerId(spId) {
+    const hit =
+      PROGRAM.find((p) => (p.speakerIds || []).includes(spId)) ||
+      PROGRAM_EXTRA.find((p) => (p.speakerIds || []).includes(spId));
+    return hit ? hit.topic : '—';
+  }
+
+  function collectSlotIdsForSpeaker(sp) {
+    const ids = [];
+    const tail = sp.name.split(/\s+/).pop() || sp.name;
+    const head = sp.name.split(/\s+/)[0] || '';
+    for (const sl of SLOTS) {
+      if (String(sl.id).endsWith('__block')) continue;
+      const p = PROGRAM.find((x) => x.id === sl.id) || PROGRAM_EXTRA.find((x) => x.id === sl.id);
+      if (!p) continue;
+      if ((p.speakerIds || []).includes(sp.id)) {
+        ids.push(sl.id);
+        continue;
+      }
+      for (const line of p.speakers || []) {
+        if (line.includes(tail) || line.includes(head)) {
+          ids.push(sl.id);
+          break;
+        }
+      }
+    }
+    return [...new Set(ids)];
+  }
+
+  /** @type {Speaker[]} */
+  const SPEAKERS = DATA_SPEAKERS.map((sp) => ({
+    key: sp.id,
+    name: sp.name,
+    role: sp.role,
+    topic: topicForSpeakerId(sp.id),
+    slotIds: collectSlotIdsForSpeaker(sp),
+    times: `${sp.day === 1 ? 'День 1' : 'День 2'}, ${sp.time}`,
+  }));
 
   const VISIBLE_SLOTS = SLOTS.filter((s) => !s.hidden);
 
@@ -517,8 +218,6 @@
     const d = new Date(`${dStr}T${pad2(h)}:${pad2(m)}:00`);
     return d.getTime();
   }
-
-  const DAY_ISO = { 1: "2026-05-16", 2: "2026-05-17" };
 
   /** Календарная фаза форума по локальному времени устройства (дни 16–17 мая 2026). */
   function localForumPhase(ts = Date.now()) {
